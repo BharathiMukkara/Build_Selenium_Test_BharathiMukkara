@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.assertj.core.api.JUnitSoftAssertions;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -22,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class BaseFramework {
-	protected WebDriver driver;
+	protected  WebDriver driver;
 	protected Wait<WebDriver> wait;
 	private static final Logger LOG = LoggerFactory.getLogger(BaseFramework.class);
 	private static final String CONFIG_FILE = "./conf/automation.properties";
@@ -52,11 +53,12 @@ public abstract class BaseFramework {
 			capabilities = DesiredCapabilities.chrome();
 			driver = new ChromeDriver(capabilities);
 		} else if (DRIVER_FIREFOX.equalsIgnoreCase(configuration.getProperty("BROWSER"))) {
+			System.setProperty("webdriver.gecko.driver","C:\\Users\\spamudur\\git\\geckodriver.exe");
 			capabilities = DesiredCapabilities.firefox();
 			driver = new FirefoxDriver(capabilities);
 		}
 		// Define fluent wait
-		wait = new FluentWait<WebDriver>(driver).withTimeout(15, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
+		wait = new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
 				.ignoring(NoSuchElementException.class);
 	}
 
@@ -69,9 +71,9 @@ public abstract class BaseFramework {
 	}
 
 	@After
-	public void tearDownAfter() {
+	public  void tearDownAfter() {
 		LOG.info("Quitting driver.");
-		driver.quit();
+		//driver.quit();
 		driver = null;
 	}
 }
