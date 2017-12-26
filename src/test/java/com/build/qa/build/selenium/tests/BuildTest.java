@@ -44,7 +44,6 @@ public class BuildTest extends BaseFramework {
 		LOG.info("The Website is loaded with the Build.com desktop theme");
 	    String title=driver.getTitle();
 	    System.out.println("Page title is: "+title);
-
 	}
 	
 	/** 
