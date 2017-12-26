@@ -50,6 +50,7 @@ public abstract class BaseFramework {
 		DesiredCapabilities capabilities;
 		// Which driver to use? 
 		if (DRIVER_CHROME.equalsIgnoreCase(configuration.getProperty("BROWSER"))) {
+			System.setProperty("webdriver.chrome.driver","C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe");
 			capabilities = DesiredCapabilities.chrome();
 			driver = new ChromeDriver(capabilities);
 		} else if (DRIVER_FIREFOX.equalsIgnoreCase(configuration.getProperty("BROWSER"))) {
