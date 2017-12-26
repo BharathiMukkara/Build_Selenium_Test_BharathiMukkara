@@ -31,7 +31,7 @@ public class BuildTest extends BaseFramework {
 	 * Extremely basic test that outlines some basic
 	 * functionality and page objects as well as assertJ
 	 */
-	/*@Test
+	@Test
 	public void navigateToHomePage() { 
 	//	private static final Logger   = LoggerFactory.getLogger(BaseFramework.class);
 		driver.get(getConfiguration("HOMEPAGE"));
@@ -44,8 +44,8 @@ public class BuildTest extends BaseFramework {
 		LOG.info("The Website is loaded with the Build.com desktop theme");
 	    String title=driver.getTitle();
 	    System.out.println("Page title is: "+title);
-    
-	}*/
+
+	}
 	
 	/** 
 	 * Search for the Quoizel MY1613 from the search bar
