@@ -59,7 +59,7 @@ public abstract class BaseFramework {
 			driver = new FirefoxDriver(capabilities);
 		}
 		// Define fluent wait
-		wait = new FluentWait<WebDriver>(driver).withTimeout(30, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
+		wait = new FluentWait<WebDriver>(driver).withTimeout(300, TimeUnit.SECONDS).pollingEvery(500, TimeUnit.MILLISECONDS)
 				.ignoring(NoSuchElementException.class);
 	}
 
@@ -74,7 +74,7 @@ public abstract class BaseFramework {
 	@After
 	public  void tearDownAfter() {
 		LOG.info("Quitting driver.");
-		//driver.quit();
+		driver.quit();
 		driver = null;
 	}
 }

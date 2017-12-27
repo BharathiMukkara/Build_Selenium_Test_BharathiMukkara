@@ -13,8 +13,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.By.ByLinkText;
 import org.openqa.selenium.By.ByXPath;
 import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.build.qa.build.selenium.framework.BaseFramework;
 import com.build.qa.build.selenium.pageobjects.homepage.BathRoomFaucets;
@@ -36,7 +39,8 @@ public class BuildTest extends BaseFramework {
 	//	private static final Logger   = LoggerFactory.getLogger(BaseFramework.class);
 		driver.get(getConfiguration("HOMEPAGE"));
 		HomePage homePage = new HomePage(driver, wait);
-		WebElement element=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-no-title > button:nth-child(2) > span:nth-child(2)")));
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+		WebElement element=wait.until(ExpectedConditions.elementToBeClickable(By.id("emailSignup")));
 		boolean status=element.isDisplayed();
 		//Verify if the page is loaded with Assert  Statement  
 		Assert.assertEquals(status, true);
@@ -44,29 +48,31 @@ public class BuildTest extends BaseFramework {
 		LOG.info("The Website is loaded with the Build.com desktop theme");
 	    String title=driver.getTitle();
 	    System.out.println("Page title is: "+title);
+	    
+	 
 	}
 	
 	/** 
 	 * Search for the Quoizel MY1613 from the search bar
+	 * @throws InterruptedException 
 	 * @assert: That the product page we land on is what is expected by checking the product title
 	 * @difficulty Easy
 	 */
- /*@Test
-	public void searchForProductLandsOnCorrectProduct() { 
+ @Test
+	public void searchForProductLandsOnCorrectProduct() throws InterruptedException { 
 		// TODO: Implement this test
 		driver.get(getConfiguration("HOMEPAGE"));
 		HomePage homePage = new HomePage(driver, wait);
-		WebElement element=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".modal-no-title > button:nth-child(2) > span:nth-child(2)")));
-		boolean status=element.isDisplayed();
-		System.out.println("The Website is loaded with the Build.com desktop theme");
-		boolean status1=element.isDisplayed();
-		//Verify if the page is loaded with Assert  Statement  
-		Assert.assertEquals(status1, true);
-		System.out.println("The Website is loaded with the Build.com desktop theme");
-		LOG.info("The Website is loaded with the Build.com desktop theme");
+		WebDriverWait wait = new WebDriverWait(driver, 60);
+	    wait.until(ExpectedConditions.elementToBeClickable(By.id("emailSignup")));
+	   	//Verify if the page is loaded with Assert  Statement  
+		System.out.println("The Website is loaded with the Bath Room Faucets page theme");
+		LOG.info("The Website is loaded with the Bath Room Faucets theme");
 	    String title=driver.getTitle();
-	    System.out.println("Page title is: "+title);
-		driver.findElement(By.cssSelector(".modal-no-title > button:nth-child(2) > span:nth-child(2)")).click();
+		System.out.println("Page title is: "+title);
+		Thread.sleep(1000);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).build().perform();
 		driver.manage().window().maximize();
 		driver.findElement(By.xpath("//*[@id=\"search_txt\"]")).sendKeys("Quoizel MY1613");
         //Click on Search	 
@@ -78,7 +84,7 @@ public class BuildTest extends BaseFramework {
 		String Actual="Quoizel MY1613ML";
 		//verify if the Product is loaded
 		Assert.assertEquals(Actual,Expected);
-	}*/
+	}
 	
 	/** 
 	 * Go to the Bathroom Sinks category directly (https://www.build.com/bathroom-sinks/c108504) 
@@ -87,44 +93,43 @@ public class BuildTest extends BaseFramework {
 	 * @assert: the product that is added to the cart is what is expected
 	 * @difficulty Easy-Medium
 	 */
-/*@Test
+@Test
 	public void addProductToCartFromCategoryDrop() throws InterruptedException { 
 		driver.get(getConfiguration("BathRoomSinks"));
 		BathRoomSinksPage BathroomsinksPage = new BathRoomSinksPage(driver, wait);
-	
-		WebElement element=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")));
-		boolean status=element.isDisplayed();
-		boolean status1=element.isDisplayed();
-	
-		//Verify if the page is loaded with Assert  Statement  
-		Assert.assertEquals(status1, true);
-		System.out.println("The Website is loaded with the Bath Room Sinks page theme");
-		LOG.info("The Website is loaded with the Bath Room Sinks theme");
+	    WebDriverWait wait = new WebDriverWait(driver, 200);
+	    wait.until(ExpectedConditions.elementToBeClickable(By.id("emailSignup")));
+	   	//Verify if the page is loaded with Assert  Statement  
+		System.out.println("The Website is loaded with the Bath Room Faucets page theme");
+		LOG.info("The Website is loaded with the Bath Room Faucets theme");
 	    String title=driver.getTitle();
-	    System.out.println("Page title is: "+title);
-		driver.findElement(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")).click();
-					
+		System.out.println("Page title is: "+title);
+		Thread.sleep(6000);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).build().perform();
 		Thread.sleep(3000);
-				
-     	//click on shop by installation type
+     	//click on Drop In
     	driver.findElement(By.xpath("(//*[contains(text(),'Drop In')])[3]")).click();
+
     	Thread.sleep(3000);
 		driver.findElement(By.xpath("(//span[contains(text(),'Vox Rectangle')])")).click();
-		Thread.sleep(3000);
+		Thread.sleep(6000);
 		//click on Add to Cart
 		driver.findElement(By.xpath("//*[contains(text(),'Add to Cart')]")).click();
 		//Verify that the product appears
-		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		Thread.sleep(6000);
+		driver.findElement(By.xpath("(//*[contains(text(),'Cart')])[3]")).click();
+		
+		driver.findElement(By.xpath("//span[text()=concat('22-5/8','\"',' Vox Rectangle Vessel Sink with Overflow')]")).click();
+		
 		WebElement Text1=driver.findElement(By.xpath("//*[@id=\"heading\"]"));
-		String Expected=Text1.getText();
-		System.out.println(Expected);
-		String Actual="Kohler K-5373-0";
-	
+		String Actual=Text1.getText();
+		String Expected="Kohler K-5373-0";
 		Assert.assertEquals(Actual,Expected);
 		
 		// TODO: Implement this test
-	}*/
 	
+}
 	
 	
 	/** 
@@ -134,57 +139,58 @@ public class BuildTest extends BaseFramework {
 	 * @assert that the "Cart Sent" success message is displayed after emailing the cart
 	 * @difficulty Medium-Hard
 	 */
-/*@Test
+@Test
 	public void addProductToCartAndEmailIt() throws InterruptedException { 
 		// TODO: Implement this test
-	driver.get(getConfiguration("BathRoomSinks"));
-	BathRoomSinksPage BathroomsinksPage = new BathRoomSinksPage(driver, wait);
-	WebElement element=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")));
-	boolean status1=element.isDisplayed();
-	//Verify if the page is loaded with Assert  Statement  
-	Assert.assertEquals(status1, true);
-	System.out.println("The Website is loaded with the Bath Room Sinks page theme");
-	LOG.info("The Website is loaded with the Bath Room Sinks theme");
-    String title=driver.getTitle();
-    System.out.println("Page title is: "+title);
-	driver.findElement(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")).click();
-	Thread.sleep(3000);
-	//click on shop by installation type
-	driver.findElement(By.xpath("(//*[contains(text(),'Drop In')])[3]")).click();
-	Thread.sleep(3000);
-	driver.findElement(By.xpath("(//span[contains(text(),'Vox Rectangle')])")).click();
-	Thread.sleep(3000);
-	//click on Add to Cart
-	driver.findElement(By.xpath("//*[contains(text(),'Add to Cart')]")).click();
-	Thread.sleep(3000);
-	//click on Cart
-	driver.findElement(By.xpath("(//*[contains(text(),'Cart')])[3]")).click();
-	Thread.sleep(3000);
-	//Click on Email Cart
-	driver.findElement(By.xpath("(//*[contains(text(),'Email Cart')])[1]")).click();
-	Thread.sleep(3000);
-	driver.findElement(By.xpath("//*[@id=\"yourName\"]")).sendKeys("Bharathi");
-	driver.findElement(By.xpath("//*[@id=\"yourEmail\"]")).sendKeys("Bharathi.mukkara@gmail.com");
-	driver.findElement(By.xpath("//*[@id=\"recipientName\"]")).sendKeys("Selenium Test");
-	driver.findElement(By.xpath("//*[@id=\"recipientEmail\"]")).sendKeys("jgilmore+SeleniumTest@build.com");
-	driver.findElement(By.xpath("//*[@id=\"quoteMessage\"]")).sendKeys("This is bharathi Mukkara, sending you a cart from my automation");
-	//click on Email Cart
-	driver.findElement(By.xpath("(//*[contains(text(),'Email Cart')])[3]")).click();
-	//Verify if the message is successful
-	try 
-    {
+		driver.get(getConfiguration("BathRoomSinks"));
+		BathRoomSinksPage BathroomsinksPage = new BathRoomSinksPage(driver, wait);
+		WebDriverWait wait = new WebDriverWait(driver, 200);
+	    wait.until(ExpectedConditions.elementToBeClickable(By.id("emailSignup")));
+	   	//Verify if the page is loaded with Assert  Statement  
+		System.out.println("The Website is loaded with the Bath Room Faucets page theme");
+		LOG.info("The Website is loaded with the Bath Room Faucets theme");
+	    String title=driver.getTitle();
+		System.out.println("Page title is: "+title);
+		Thread.sleep(6000);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).build().perform();
+		Thread.sleep(3000);
+		//click on shop by installation type
+		driver.findElement(By.xpath("(//*[contains(text(),'Drop In')])[3]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("(//span[contains(text(),'Vox Rectangle')])")).click();
+		Thread.sleep(3000);
+		//click on Add to Cart
+		driver.findElement(By.xpath("//*[contains(text(),'Add to Cart')]")).click();
+		Thread.sleep(3000);
+		//click on Cart
+		driver.findElement(By.xpath("(//*[contains(text(),'Cart')])[3]")).click();
+		Thread.sleep(3000);
+		//Click on Email Cart
+		driver.findElement(By.xpath("(//*[contains(text(),'Email Cart')])[1]")).click();
+		Thread.sleep(3000);
+		driver.findElement(By.xpath("//*[@id=\"yourName\"]")).sendKeys("Bharathi");
+		driver.findElement(By.xpath("//*[@id=\"yourEmail\"]")).sendKeys("Bharathi.mukkara@gmail.com");
+		driver.findElement(By.xpath("//*[@id=\"recipientName\"]")).sendKeys("Selenium Test");
+		driver.findElement(By.xpath("//*[@id=\"recipientEmail\"]")).sendKeys("jgilmore+SeleniumTest@build.com");
+		driver.findElement(By.xpath("//*[@id=\"quoteMessage\"]")).sendKeys("This is bharathi Mukkara, sending you a cart from my automation");
+		//click on Email Cart
+		driver.findElement(By.xpath("(//*[contains(text(),'Email Cart')])[3]")).click();
+		//Verify if the message is successful
+		try 
+	    {
 		WebElement e=driver.findElement(By.xpath("//ul[contains(@class,'alert-success alert-dismissable')]/ul"));
-       if(e.isDisplayed()) {
-    	   LOG.info("The message is displayed");
-       }
+	       if(e.isDisplayed()) {
+	    	   LOG.info("Cart Sent! The cart has been sent to Mail: Message is displayed");
+	       }
     }
 	catch(Exception e)
 	{
 		new Exception("Message is not displayed");
 	}
 	
-	
-}*/
+
+}
 	
 	/** 
 	 * Go to a category drop page (such as Bathroom Faucets) and narrow by
@@ -199,14 +205,17 @@ public class BuildTest extends BaseFramework {
 		// TODO: Implement this test
 	    driver.get(getConfiguration("BathRoomSinkFaucets"));
 	    BathRoomSinkFaucets Bathroomsinkfaucets = new BathRoomSinkFaucets(driver, wait);
-		 WebElement element=wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")));
-		boolean status1=element.isDisplayed();
-		//Verify if the page is loaded with Assert  Statement  
-		Assert.assertEquals(status1, true);
+	    WebDriverWait wait = new WebDriverWait(driver, 60);
+	    wait.until(ExpectedConditions.elementToBeClickable(By.id("emailSignup")));
+	   	//Verify if the page is loaded with Assert  Statement  
 		System.out.println("The Website is loaded with the Bath Room Faucets page theme");
 		LOG.info("The Website is loaded with the Bath Room Faucets theme");
 	    String title=driver.getTitle();
 		System.out.println("Page title is: "+title);
+		Thread.sleep(1000);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.ESCAPE).build().perform();
+		
 		//closing the Alert
 		driver.findElement(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")).click();
 		Thread.sleep(3000);
@@ -219,10 +228,10 @@ public class BuildTest extends BaseFramework {
 		driver.findElement(By.xpath("//label[contains(text(),'Modern')]/input")).click();
 		boolean x= driver.findElement(By.xpath("//label[contains(text(),'Modern')]/input")).isSelected();
 		
-		WebElement Text1=driver.findElement(By.xpath("//*[@id=\"heading\"]"));
+		WebElement Text1=driver.findElement(By.xpath("(//span[contains(text(),'Products')]/span)[1]"));
 		String Expected=Text1.getText();
 		System.out.println(Expected);
-		String Actual="Kohler K-5373-0";
+		String Actual="985";
 		Assert.assertEquals(Actual,Expected);
 	}
 }
