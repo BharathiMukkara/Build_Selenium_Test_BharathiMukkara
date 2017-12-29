@@ -217,7 +217,6 @@ public class BuildTest extends BaseFramework {
 		action.sendKeys(Keys.ESCAPE).build().perform();
 		
 		//closing the Alert
-		driver.findElement(By.cssSelector("#email-subscribe-splash > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2) > span:nth-child(2)")).click();
 		Thread.sleep(3000);
 		//Select Chrome tones
 		driver.findElement(By.xpath("(//label[contains(text(),'Chromes')]/input)[1]")).click();
